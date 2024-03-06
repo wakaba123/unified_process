@@ -1,0 +1,4 @@
+**/__pycache__/
+pics/
+on_device
+**/.pytest_cache/
