@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2024-03-06 14:27:42
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-06 21:59:54
-FilePath: /scripts/power/powermonitor.py
+FilePath: /unified_process/power/powermonitor.py
 Description: this file is used to control power monitor
 
 Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 
@@ -59,7 +59,7 @@ class PowerMonitor:
 				break
             
 	def stop(self):
-		assert self._thread
+		# assert self._thread
 		if self._thread:
 			self._stop_event.set()
 			self._thread.join()
@@ -68,3 +68,6 @@ class PowerMonitor:
 
 	def powerOff(self):
 		self.Mon.setVout(0)
+
+a = PowerMonitor()
+a.stop()

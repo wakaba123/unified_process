@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2024-03-06 11:52:27
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-06 12:29:31
-FilePath: /scripts/plot_model_freq_time.py
+FilePath: /unified_process/plot_model_freq_time.py
 Description: This file is used to plot different model's inference time under different frequency
 
 Copyright (c) 2024 by wakaba, All Rights Reserved. 

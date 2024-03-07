@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2023-12-03 21:27:54
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-05 21:54:14
-FilePath: /scripts/cpu_freq_time.py
+FilePath: /unified_process/cpu_freq_time.py
 Description: 
 
 Copyright (c) 2024 by ${git_name_email}, All Rights Reserved. 

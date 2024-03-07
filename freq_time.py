@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2023-12-03 21:27:54
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-06 13:55:46
-FilePath: /scripts/freq_time.py
+FilePath: /unified_process/freq_time.py
 Description: this file is used to test partition and freq setting
 
 Copyright (c) 2024 by wakaba All Rights Reserved. 
@@ -14,12 +14,12 @@ from datetime import datetime
 import time
 import numpy as np
 import sys
-sys.path.append('/home/wakaba/Desktop/scripts')
+sys.path.append('/home/wakaba/Desktop/unified_process')
 import basic_tools.freq_setting as fs
 import configparser
 
 config = configparser.ConfigParser()
-config.read('/home/wakaba/Desktop/scripts/config.ini')
+config.read('/home/wakaba/Desktop/unified_process/config.ini')
 
 # 获得特定频率下，特定node要求下的 推理时间
 def run_inference_and_get_time(cpu_freq, gpu_freq, first_node=0, last_node=999999, loop_time=5):

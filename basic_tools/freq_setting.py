@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2024-03-04 14:55:57
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-05 23:24:48
-FilePath: /scripts/basic_tools/freq_setting.py
+FilePath: /unified_process/basic_tools/freq_setting.py
 Description: this file is used to set freq for cpu and gpu
 
 Copyright (c) 2024 by wakaba All Rights Reserved. 

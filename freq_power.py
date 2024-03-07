@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2023-12-03 21:27:54
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-06 22:03:25
-FilePath: /scripts/freq_power.py
+FilePath: /unified_process/freq_power.py
 Description: this file is used to test inference power under different frequency
 
 Copyright (c) 2024 by wakaba All Rights Reserved. 
@@ -14,7 +14,7 @@ from datetime import datetime
 import time
 import numpy as np
 import sys
-sys.path.append('/home/wakaba/Desktop/scripts')
+sys.path.append('/home/wakaba/Desktop/unified_process')
 import basic_tools.freq_setting as fs
 import power.powermonitor as pm
 import configparser
@@ -25,11 +25,12 @@ import traceback
 
 # 获取配置信息
 config = configparser.ConfigParser()
-config.read('/home/wakaba/Desktop/scripts/config.ini')
+config.read('/home/wakaba/Desktop/unified_process/config.ini')
 
-device_name = 'pixel3'
+device_name = 'a36'
 cpu_type = fs.check_soc()
 cpu_type = len(cpu_type)
+
 
 freq_lists = {
     2: ['little_freq_list','big_freq_list'],
@@ -60,6 +61,7 @@ with open(device_name + '_freq_model_gpu_power.csv', 'w') as f:
 
 
 def power_thread(freq, process_unit):
+    print('here in power_thread')
     HOST = '0.0.0.0'  # 监听所有接口
     PORT = 8080
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -82,6 +84,7 @@ def power_thread(freq, process_unit):
             with open(device_name + f'_freq_model_{process_unit}_power.csv', 'a') as f:
                 f.write(f'{model},{freq},{powermonitor.power_data}\n')
             print(powermonitor.power_data)
+    time.sleep(1)
 
 
 for model in models:
@@ -90,9 +93,9 @@ for model in models:
             fs.set_cpu_freq_by_type(-1, cpu_freq)  
             thread = threading.Thread(target=power_thread,args=(cpu_freq,'cpu',))
             thread.start()
+            time.sleep(2)
             command = f'adb shell /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} --warmup_runs={warmup_runs} --count={count}' 
             result = subprocess.run(command , shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            time.sleep(2)
             inference_time = result.stderr.split('\n')[-2].split()[-2]
             thread.join()
     
@@ -102,6 +105,7 @@ for model in models:
             fs.set_gpu_freq(gpu_freq, len(gpu_freq_list) - 1 - gpu_freq_list.index(gpu_freq))
             thread = threading.Thread(target=power_thread,args=(gpu_freq,'gpu',))
             thread.start()
+            time.sleep(2)
             command = f'adb shell /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} -g 1 --first_node=0 --last_node=9999 --warmup_runs={warmup_runs} --count={count}' 
             result = subprocess.run(command , shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             inference_time = result.stderr.split('\n')[-2].split()[-2]

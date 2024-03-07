@@ -3,7 +3,7 @@ Author: wakaba blues243134@gmail.com
 Date: 2024-03-04 11:58:20
 LastEditors: wakaba blues243134@gmail.com
 LastEditTime: 2024-03-05 23:23:24
-FilePath: /scripts/tests/test_freq_setting.py
+FilePath: /unified_process/tests/test_freq_setting.py
 Description: this is a test for freq_setting, including super big / big / little cpu freq setting and gpu freq setting
 
 Copyright (c) 2024 by wakaba All Rights Reserved. 
@@ -12,11 +12,11 @@ import configparser
 import random
 import sys
 import time
-sys.path.append('/home/wakaba/Desktop/scripts/')
+sys.path.append('/home/wakaba/Desktop/unified_process/')
 import basic_tools.freq_setting as fs
 
 config = configparser.ConfigParser()
-config.read('/home/wakaba/Desktop/scripts/config.ini')
+config.read('/home/wakaba/Desktop/unified_process/config.ini')
 
 device_name = 'pixel3'  # 你可以根据实际情况切换设备名称
 
