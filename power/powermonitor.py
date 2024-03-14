@@ -31,7 +31,7 @@ class PowerMonitor:
 		self._stop_event = threading.Event()
 
 	def start(self):
-		assert not self._thread
+		# assert not self._thread
 		self.power_data= [] 
 		self.progress_bar = 0
 		self._stop_event.clear()

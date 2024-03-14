@@ -8,11 +8,11 @@ Description:
 
 Copyright (c) 2024 by wakaba All Rights Reserved. 
 '''
-
 import socket
 
 HOST = '0.0.0.0'  # 监听所有接口
 PORT = 8080
+SEPARATOR = b'|'  # 分隔符字节串
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
     s.bind((HOST, PORT))
@@ -23,6 +23,13 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         print('Connected by', addr)
         while True:
             data = conn.recv(1024)
+            print(data)
             if not data:
                 break
-            print('Received from phone:', data.decode())
+            
+            # Split received data using the separator
+            messages = data.split(SEPARATOR)
+
+            # Process each message
+            for msg in messages:
+                print('Received from phone:', msg.decode())
