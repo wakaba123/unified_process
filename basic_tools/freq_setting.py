@@ -2,7 +2,7 @@
 Author: wakaba blues243134@gmail.com
 Date: 2024-03-04 14:55:57
 LastEditors: wakaba blues243134@gmail.com
-LastEditTime: 2024-03-05 23:24:48
+LastEditTime: 2024-03-27 20:00:00
 FilePath: /unified_process/basic_tools/freq_setting.py
 Description: this file is used to set freq for cpu and gpu
 
@@ -66,6 +66,7 @@ def set_gpu_freq(freq, index):
     execute(f'echo {freq[:-6]} > /sys/class/kgsl/kgsl-3d0/max_clock_mhz')
     execute(f'echo {freq[:-6]} > /sys/class/kgsl/kgsl-3d0/min_clock_mhz')
     execute(f'echo {index} > /sys/class/kgsl/kgsl-3d0/thermal_pwrlevel')
+    execute(f'echo {index} > /sys/class/kgsl/kgsl-3d0/default_pwrlevel')
     
 # get gpu frequency
 def get_gpu_freq():
