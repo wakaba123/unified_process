@@ -48,6 +48,7 @@ def set_cpu_freq_by_type(type, freq): # 0 means little, 1 means big , 2 means su
 # get cpu frequency
 def get_cpu_freq():
     cpu_type = check_soc()
+    # print(cpu_type)
     result = []
     for policy in cpu_type:
         result.append(execute(f'cat /sys/devices/system/cpu/cpufreq/{policy}/scaling_cur_freq').replace('\n',''))
@@ -72,3 +73,8 @@ def set_gpu_freq(freq, index):
 def get_gpu_freq():
     return execute(f'cat /sys/class/kgsl/kgsl-3d0/devfreq/cur_freq').replace('\n','')
 
+def turn_off_on_core(type, on): # type should be 0,1,2   on should be 0 , 1
+    cpu_type = check_soc()
+    cpu_type[0]='1'
+    for i in range(int(cpu_type[type][-1]), 8 if int(type) == 1 else  int(cpu_type[type + 1][-1])):
+        execute(f'echo {on} > /sys/devices/system/cpu/cpu{i}/online') 
