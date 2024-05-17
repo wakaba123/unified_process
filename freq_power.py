@@ -92,29 +92,29 @@ def power_thread(model ,freq, process_unit):
     time.sleep(1)
 
 
-for model in models:
+for model in models[:2]:
     try:
-        for cpu_freq in cpu_freq_list[-2]:
-            fs.set_cpu_freq_by_type(-2, cpu_freq)  
+        for cpu_freq in cpu_freq_list[0]:
+            fs.set_cpu_freq_by_type(0, cpu_freq)  
             thread = threading.Thread(target=power_thread,args=(model, cpu_freq,'cpu',))
             thread.start()
-            command = f'adb shell taskset 70 /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} --warmup_runs={warmup_runs} --count={count}' 
+            command = f'adb shell taskset 03 /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} --warmup_runs={warmup_runs} --count={count}' 
             result = subprocess.run(command , shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
             thread.join()
             print('thread finished')
             # time.sleep(5)
 
-        fs.set_cpu_freq_by_type(-1, cpu_freq_list[-1][-1])  # cpu设置为最高频
+        # fs.set_cpu_freq_by_type(-1, cpu_freq_list[-1][-1])  # cpu设置为最高频
 
-        for gpu_freq in gpu_freq_list:
-            fs.set_gpu_freq(gpu_freq, len(gpu_freq_list) - 1 - gpu_freq_list.index(gpu_freq))
-            thread = threading.Thread(target=power_thread,args=(model, gpu_freq,'gpu',))
-            thread.start()
-            command = f'adb shell taskset 70 /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} -g 1 --first_node=0 --last_node=9999 --warmup_runs={warmup_runs} --count={count}' 
-            result = subprocess.run(command , shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-            assert fs.get_gpu_freq() == gpu_freq
-            thread.join()
-            # time.sleep(20)
+        # for gpu_freq in gpu_freq_list:
+        #     fs.set_gpu_freq(gpu_freq, len(gpu_freq_list) - 1 - gpu_freq_list.index(gpu_freq))
+        #     thread = threading.Thread(target=power_thread,args=(model, gpu_freq,'gpu',))
+        #     thread.start()
+        #     command = f'adb shell taskset 70 /data/local/tmp/label_image -m /data/local/tmp/tflite_model/{model} -g 1 --first_node=0 --last_node=9999 --warmup_runs={warmup_runs} --count={count}' 
+        #     result = subprocess.run(command , shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        #     assert fs.get_gpu_freq() == gpu_freq
+        #     thread.join()
+        #     # time.sleep(20)
 
     except Exception as e:
         traceback.print_exc()
