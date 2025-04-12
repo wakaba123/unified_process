@@ -44,7 +44,7 @@ else:
 gpu_freq_list = config.get(device_name,'gpu_freq_list').split()
 
 # 开启功耗仪
-powermonitor = pm.PowerMonitor()
+powermonitor = pm.PoweMonitor()
 
 # 获取不同的频点的推理的功耗开销
 warmup_runs = 20

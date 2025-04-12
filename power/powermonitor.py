@@ -36,6 +36,7 @@ class PowerMonitor:
 		self.progress_bar = 0
 		self._stop_event.clear()
 		self._thread = threading.Thread(target=self.get_power, args=(1000, )) # 1 second
+		self._thread.daemon = True
 		self._thread.start()
 
 	def get_power(self, sampleNum):
